@@ -8,11 +8,11 @@ prefect server start
 
 python training.py
 
-prefect init --recipe local
+prefect init --recipe local /prefect init --recipe git
 
 prefect work-pool create cyberbullying --type process
 
-prefect deploy training.py:main_flow -n cyberbullying_flow -p cyberbullying
+prefect deploy training/training.py:main_flow -n cyberbullying_flow -p cyberbullying
 
 prefect worker start --pool cyberbullying
 
