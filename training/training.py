@@ -216,7 +216,7 @@ def main_flow():
     client = MlflowClient()
 
     # Load the data
-    df = load_data("../data/raw/cyberbullying_tweets.csv")
+    df = load_data("data/raw/cyberbullying_tweets.csv")
 
     # Clean the text
     X_train, y_train = prepare_data(df)
