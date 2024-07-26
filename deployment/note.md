@@ -38,7 +38,7 @@ aws kinesis put-record \
         "tweet": {
             "tweet_text": "Hello, this is a test."
         }, 
-        "tweet_id": 123
+        "tweet_id": 99
     }' \
     --cli-binary-format raw-in-base64-out
 
@@ -96,7 +96,7 @@ REMOTE_URI="381492288364.dkr.ecr.eu-north-1.amazonaws.com/tweet-model"
 REMOTE_TAG="v1"
 REMOTE_IMAGE=${REMOTE_URI}:${REMOTE_TAG}
 
-LOCAL_IMAGE="stream-model-tweet:v1"
+LOCAL_IMAGE="stream-model-duration:v1"
 docker tag ${LOCAL_IMAGE} ${REMOTE_IMAGE}
 docker push ${REMOTE_IMAGE}
 

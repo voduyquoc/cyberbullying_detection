@@ -53,14 +53,10 @@ def lambda_handler(event, context):
         decoded_data = base64.b64decode(encoded_data).decode('utf-8')
         tweet_event = json.loads(decoded_data)
 
-        # print(tweet_event)
         tweet = tweet_event['tweet']
-        print(tweet)
-        print(type(tweet))
         tweet_id = tweet_event['tweet_id']
     
         features = prepare_features(tweet)
-        # print(features)
         prediction = predict(features)
     
         prediction_event = {
