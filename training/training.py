@@ -10,6 +10,7 @@ from mlflow.tracking import MlflowClient
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
@@ -176,11 +177,52 @@ def train_nb_model(X, y):
 
     return None
 
-@task(name="Register Best Model", log_prints=True)
-def register_best_model(client, EXPERIMENT_NAME):
+@task(name="Train RF Model", log_prints=True)
+def train_rf_model(X, y):
+    """
+    Train Model
+    Args:
+        X_train, y_train: data which ready to be use
 
+    Returns:
+        machine learning model which is saved in defined directory
+    """
     logger = get_run_logger()
-    logger.info("Select the model with the highest test accuracy...")
+    logger.info("Starting RF training process...")
+    
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    with mlflow.start_run():
+        
+        # Create Pipeline
+        pipeline = Pipeline(
+            [
+                ('vectorizer', CountVectorizer()),
+                ('clf', RandomForestClassifier()),
+            ]
+        )
+        
+        # Train the model
+        pipeline.fit(X_train, y_train)
+        test_acc = accuracy_score(y_test, pipeline.predict(X_test))
+
+        # Log the model
+        logger.info("Logging the model...")
+        
+        mlflow.set_tag("model", "Random Forest")
+
+        mlflow.sklearn.log_model(pipeline, "model")
+        mlflow.log_metric("test_accuracy", test_acc)
+
+        logger.info("Completed RF training process...")
+
+    return None
+
+
+@task(name="Get Best Model", log_prints=True)
+def get_best_model(client, EXPERIMENT_NAME):
+    logger = get_run_logger()
+    logger.info("Get the model with the highest test accuracy...")
 
     experiment = client.get_experiment_by_name(EXPERIMENT_NAME)
     best_run = client.search_runs(
@@ -190,12 +232,56 @@ def register_best_model(client, EXPERIMENT_NAME):
         order_by=["metrics.test_accuracy DESC"])[0]
     best_run_id = best_run.info.run_id
 
-    # Register the best model
-    logger.info("Register the best model...")
-    mlflow.register_model(
-        model_uri=f"runs:/{best_run_id}/models",
-        name='cyberbullying_clf')
+    best_run_tags = best_run.data.tags
+    tag_key = 'model'
+    tag_value = best_run_tags.get(tag_key)
+
+    return best_run_id, tag_value
+
+@task(name="Re-train best model on all data", log_prints=True)
+def train_all_data(S3_BUCKET_NAME, RUN_ID, X, y, tag_value):
+    logger = get_run_logger()
+    logger.info("Re-train best model on all data...")
+
+    logged_model = f's3://{S3_BUCKET_NAME}/1/{RUN_ID}/artifacts/model'
+    model = mlflow.sklearn.load_model(logged_model)
+
+    with mlflow.start_run() as run:
+        
+        #Train the model
+        model.fit(X, y)
+
+        # Log the model
+        logger.info("Logging the model...")
+
+        mlflow.set_tag("model", tag_value)
+        mlflow.sklearn.log_model(model, "model")
+
+        logger.info("Completed training process...")
+
+        register_run_id = run.info.run_id
+
+        return register_run_id
+
+@task(name="Register Best Model", log_prints=True)
+def register_best_model(client, register_run_id, model_name, tag_value):
+
+    logger = get_run_logger()
+    logger.info(f"Register the best model which has run_id: {register_run_id}...")
+
+    result = mlflow.register_model(
+        model_uri=f"runs:/{register_run_id}/models",
+        name=model_name)
     
+    # Add a description to the model version
+    description = f'{tag_value} model retrained with all training data.'
+    client.update_model_version(
+        name=result.name,
+        version=result.version,
+        description=description
+    )
+    logger.info(f"Model registered: {result.name}, version {result.version}...")
+
     return None
 
 @flow(name="Train Model Pipeline", log_prints=True)
@@ -209,6 +295,7 @@ def main_flow():
     logger.info("Starting flow...")
 
     # MLflow settings
+    S3_BUCKET_NAME = "mlops-zoomcamp-quocvo"
     MLFLOW_TRACKING_URI = 'http://127.0.0.1:5000'
     EXPERIMENT_NAME = "Training Model"
     mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
@@ -216,7 +303,7 @@ def main_flow():
     client = MlflowClient()
 
     # Load the data
-    df = load_data("data/raw/cyberbullying_tweets.csv")
+    df = load_data("../data/raw/cyberbullying_tweets.csv")
 
     # Clean the text
     X_train, y_train = prepare_data(df)
@@ -224,9 +311,17 @@ def main_flow():
     # Train the model
     train_lr_model(X_train, y_train)
     train_nb_model(X_train, y_train)
+    train_rf_model(X_train, y_train)
+
+    # Get best model
+    best_run_id, tag_value = get_best_model(client, EXPERIMENT_NAME)
+
+    # Re-train best model on all data
+    register_run_id = train_all_data(S3_BUCKET_NAME, best_run_id, X_train, y_train, tag_value)
 
     # Register best model
-    register_best_model(client, EXPERIMENT_NAME)
+    model_name = "Cyberbullying-detection"
+    register_best_model(client, register_run_id, model_name, tag_value)
 
     return None
 
