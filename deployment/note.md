@@ -36,7 +36,7 @@ aws kinesis put-record \
     --partition-key 1 \
     --data '{ 
         "tweet": {
-            "tweet_text": "Hello, this is a test."
+            "tweet_text": "Love that the best response to the hotcakes they managed to film was a non-committal"
         }, 
         "tweet_id": 99
     }' \

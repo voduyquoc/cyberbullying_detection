@@ -1,70 +1,56 @@
 import boto3
-import base64
-import time
-import binascii
+import json
+import logging
+from botocore.exceptions import ClientError
 
-KINESIS_STREAM_OUTPUT = 'tweet_predictions'
-SHARD = 'shardId-000000000000'
+logger = logging.getLogger(__name__)
 
-def get_shard_iterator(client, stream_name, shard_id):
-    """Get the shard iterator for the given shard ID."""
-    response = client.get_shard_iterator(
-        StreamName=stream_name,
-        ShardId=shard_id,
-        ShardIteratorType='TRIM_HORIZON'
-    )
-    return response['ShardIterator']
+def process_records(Records):
+    if len(Records) != 0:
+        for i in range(0, len(Records)):
+            result = json.loads(Records[i]['Data'].decode("utf-8"))
+            tweet_id = result['prediction']['tweet_id']
+            tweet_class = result['prediction']['classification']
+            print(f'Result: tweet_id: {tweet_id}, class: {tweet_class}.')
+    else:
+        pass
+    return None
 
-def get_records(client, shard_iterator):
-    """Get records from the Kinesis stream using the shard iterator."""
-    response = client.get_records(
-        ShardIterator=shard_iterator
-    )
-    return response
-
-def decode_base64(data):
-    """Decode base64 encoded data and handle decoding errors."""
-    try:
-        return base64.b64decode(data).decode('utf-8')
-    except (binascii.Error, UnicodeDecodeError) as e:
-        print(f"Base64 decode error: {e}")
-        return None
 
 def main():
-    # Initialize the Kinesis client
-    client = boto3.client('kinesis')
+    stream_name = 'tweet_predictions'
+    
+    try:
+        kinesis_client = boto3.client('kinesis')
+        response = kinesis_client.describe_stream(StreamName=stream_name)
+        shard_id = response['StreamDescription']['Shards'][0]['ShardId']
 
-    # Get the initial shard iterator
-    shard_iterator = get_shard_iterator(client, KINESIS_STREAM_OUTPUT, SHARD)
+        # Get the shard iterator.
+        # ShardIteratorType=AT_SEQUENCE_NUMBER|AFTER_SEQUENCE_NUMBER|TRIM_HORIZON|LATEST|AT_TIMESTAMP
+        response = kinesis_client.get_shard_iterator(
+            StreamName=stream_name,
+            ShardId=shard_id,
+            ShardIteratorType='TRIM_HORIZON'
+        )
+        shard_iterator = response['ShardIterator']
 
-    while True:
-        # Get records from the Kinesis stream
-        result = get_records(client, shard_iterator)
+        max_records = 8
+        record_count = 0
 
-        # Process records if any
-        if 'Records' in result and result['Records']:
-            for record in result['Records']:
-                record_data = decode_base64(record['Data'])
-                if record_data:
-                    print(f"Record Data: {record_data}")
-                else:
-                    print("Failed to decode record data.")
-        else:
-            print("No records found.")
+        while record_count < max_records:
+            response = kinesis_client.get_records(
+                ShardIterator=shard_iterator,
+                Limit=10
+            )
+            shard_iterator = response['NextShardIterator']
+            records = response['Records']
+            record_count += len(records)
+            process_records(records)
 
-        # Update the shard iterator to the next shard iterator
-        shard_iterator = result.get('NextShardIterator')
+    except ClientError as e:
+        logger.exception("Couldn't get records from stream %s.", stream_name)
+        raise
 
-        # Check for MillisBehindLatest to know if we have processed all available records
-        millis_behind_latest = result.get('MillisBehindLatest', 0)
-        if millis_behind_latest == 0:
-            print("Reached the end of the stream.")
-            break
-
-        # Optional: Sleep for a short period to avoid overwhelming the API
-        time.sleep(1)
-
-    print("Successfully processed all records.")
 
 if __name__ == "__main__":
     main()
