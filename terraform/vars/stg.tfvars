@@ -1,0 +1,7 @@
+source_stream_name = "stg_tweet_events"
+output_stream_name = "stg_tweet_classification"
+model_bucket = "stg-mlops-zoomcamp-cyberbullying"
+lambda_function_local_path = "../lambda_function.py"
+docker_image_local_path = "../Dockerfile"
+ecr_repo_name = "stg_cyberbullying-detection-model"
+lambda_function_name = "stg_cyberbullying_detection_lambda"

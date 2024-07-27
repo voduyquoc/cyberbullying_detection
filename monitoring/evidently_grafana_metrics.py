@@ -9,13 +9,11 @@ import psycopg
 from prefect import flow, task
 from evidently import ColumnMapping
 from evidently.report import Report
-from evidently.metric_preset import TextOverviewPreset, ClassificationPreset
+from evidently.metric_preset import ClassificationPreset
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s"
 )
-SEND_TIMEOUT = 10
-begin = datetime.datetime.now(pytz.timezone('Europe/Berlin')) - datetime.timedelta(weeks=1)
 
 create_table_query = """
 create table if not exists metrics (
@@ -38,13 +36,11 @@ reference_data = pd.read_parquet('./data/reference.parquet')
 
 col_mapping = ColumnMapping(target='cyberbullying_type', prediction='prediction')
 
-report = Report(
-    metrics=[ClassificationPreset()]
-)
+report = Report(metrics=[ClassificationPreset()])
 
 
 @task
-def prep_db():
+def prep_db(create_table_query):
     """
     Prepare Database
     Ensure that the PostgreSQL database 'evidently' is created and ready for use.
@@ -64,7 +60,7 @@ def prep_db():
 
 
 @task
-def calculate_metrics_postgresql(curr, i):
+def calculate_metrics_postgresql(begin, curr, i):
     """
     Calculate Metrics and Insert into PostgreSQL
     Calculate various metrics using the Evidently library and insert them into the PostgreSQL database.
@@ -74,14 +70,14 @@ def calculate_metrics_postgresql(curr, i):
         i (int): Index for processing the data in chunks.
 
     """
-    current = current_data.iloc[i * 500 : (i + 1) * 500]
+    current = current_data.iloc[i * 5 : (i + 1) * 5]
     # current['prediction'] = model.predict(current['processed_text'])
 
-    report.run(
-        current_data=current, reference_data=reference_data, column_mapping=col_mapping
+    report.run(current_data=current, 
+               reference_data=reference_data, 
+               column_mapping=col_mapping
     )
     json_data = report.as_dict()
-
     
     current_accuracy_score = json_data['metrics'][0]['result']['current']['accuracy']
     reference_accuracy_score = json_data['metrics'][0]['result']['reference']['accuracy']
@@ -129,9 +125,11 @@ def batch_monitoring():
     Prefect flow that orchestrates the monitoring process, including metric calculation and database insertion.
 
     """
+    SEND_TIMEOUT = 10
     prep_db()
     ROWS = current_data.shape[0]
-    iters = math.ceil(ROWS / 500)
+    iters = math.ceil(ROWS / 5)
+    begin = datetime.datetime.now(pytz.timezone('Europe/Berlin')) - datetime.timedelta(iters)
     last_send = datetime.datetime.now() - datetime.timedelta(seconds=10)
     with psycopg.connect(
         "host=localhost port=5432 dbname=evidently user=postgres password=postgres",
@@ -139,7 +137,7 @@ def batch_monitoring():
     ) as conn:
         for i in range(iters):
             with conn.cursor() as curr:
-                calculate_metrics_postgresql(curr, i)
+                calculate_metrics_postgresql(begin, curr, i)
 
             new_send = datetime.datetime.now()
             seconds_elapsed = (new_send - last_send).total_seconds()

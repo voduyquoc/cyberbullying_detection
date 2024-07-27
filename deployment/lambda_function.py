@@ -7,7 +7,7 @@ import mlflow
 
 kinesis_client = boto3.client('kinesis')
 
-PREDICTIONS_STREAM_NAME = os.getenv('PREDICTIONS_STREAM_NAME', 'tweet_predictions')
+PREDICTIONS_STREAM_NAME = os.getenv('PREDICTIONS_STREAM_NAME')
 
 RUN_ID = os.getenv('RUN_ID')
 S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
@@ -76,6 +76,5 @@ def lambda_handler(event, context):
             )
         
         predictions_events.append(prediction_event)
-
 
     return {'predictions': predictions_events}
