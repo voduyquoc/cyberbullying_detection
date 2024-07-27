@@ -2,7 +2,7 @@ pipenv install scikit-learn mlflow prefect boto3 nltk
 
 pipenv shell
 
-mlflow server  --backend-store-uri sqlite:///mlflow.db --default-artifact-root=s3://mlops-zoomcamp-quocvo/
+mlflow server  --backend-store-uri sqlite:///mlflow.db --default-artifact-root=s3://mlops-zoomcamp-cyberbullying/
 
 prefect server start
 

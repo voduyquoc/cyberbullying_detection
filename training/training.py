@@ -1,6 +1,5 @@
 import re
 import nltk
-# nltk.download('punkt')
 import mlflow
 import pandas as pd
 from nltk.corpus import stopwords
@@ -10,7 +9,7 @@ from mlflow.tracking import MlflowClient
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
@@ -31,7 +30,7 @@ def load_data(path):
     """
     logger = get_run_logger()
     logger.info("Loading data from %s", path)
-    df = pd.read_csv(path, nrows=20000)
+    df = pd.read_csv(path)
     return df
 
 # Compile regex patterns
@@ -177,8 +176,8 @@ def train_nb_model(X, y):
 
     return None
 
-@task(name="Train RF Model", log_prints=True)
-def train_rf_model(X, y):
+@task(name="Train KNN Model", log_prints=True)
+def train_knn_model(X, y):
     """
     Train Model
     Args:
@@ -188,7 +187,7 @@ def train_rf_model(X, y):
         machine learning model which is saved in defined directory
     """
     logger = get_run_logger()
-    logger.info("Starting RF training process...")
+    logger.info("Starting KNN training process...")
     
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -198,7 +197,7 @@ def train_rf_model(X, y):
         pipeline = Pipeline(
             [
                 ('vectorizer', CountVectorizer()),
-                ('clf', RandomForestClassifier()),
+                ('clf', KNeighborsClassifier(n_neighbors=5)),
             ]
         )
         
@@ -209,12 +208,12 @@ def train_rf_model(X, y):
         # Log the model
         logger.info("Logging the model...")
         
-        mlflow.set_tag("model", "Random Forest")
+        mlflow.set_tag("model", "K-Nearest Neighbors")
 
         mlflow.sklearn.log_model(pipeline, "model")
         mlflow.log_metric("test_accuracy", test_acc)
 
-        logger.info("Completed RF training process...")
+        logger.info("Completed KNN training process...")
 
     return None
 
@@ -238,7 +237,7 @@ def get_best_model(client, EXPERIMENT_NAME):
 
     return best_run_id, tag_value
 
-@task(name="Re-train best model on all data", log_prints=True)
+@task(name="Re-train best model on all training data", log_prints=True)
 def train_all_data(S3_BUCKET_NAME, RUN_ID, X, y, tag_value):
     logger = get_run_logger()
     logger.info("Re-train best model on all data...")
@@ -295,7 +294,7 @@ def main_flow():
     logger.info("Starting flow...")
 
     # MLflow settings
-    S3_BUCKET_NAME = "mlops-zoomcamp-quocvo"
+    S3_BUCKET_NAME = "mlops-zoomcamp-cyberbullying"
     MLFLOW_TRACKING_URI = 'http://127.0.0.1:5000'
     EXPERIMENT_NAME = "Training Model"
     mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
@@ -303,7 +302,7 @@ def main_flow():
     client = MlflowClient()
 
     # Load the data
-    df = load_data("data/raw/cyberbullying_tweets.csv")
+    df = load_data("data/cyberbullying_tweets.csv")
 
     # Clean the text
     X_train, y_train = prepare_data(df)
@@ -311,7 +310,7 @@ def main_flow():
     # Train the model
     train_lr_model(X_train, y_train)
     train_nb_model(X_train, y_train)
-    train_rf_model(X_train, y_train)
+    train_knn_model(X_train, y_train)
 
     # Get best model
     best_run_id, tag_value = get_best_model(client, EXPERIMENT_NAME)
