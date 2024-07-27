@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 kinesis_client = boto3.client('kinesis')
 
-CONSUME_STREAM_NAME = 'tweet_predictions'
+CONSUME_STREAM_NAME = 'tweet_classification'
 
 current_data = pd.read_parquet('./data/data.parquet')
 
@@ -68,4 +68,4 @@ def main(stream_name):
 
 
 if __name__ == "__main__":
-    main()
+    main(CONSUME_STREAM_NAME)

@@ -24,7 +24,7 @@ def produce(df, num_record, kinesis_client, produce_stream_name, partition_key):
         kinesis_client.put_record(
             StreamName=produce_stream_name,
             Data=data_base64,
-            PartitionKey=PARTITION_KEY
+            PartitionKey=partition_key
         )
 
         print(f'Record index {i} is sent.')

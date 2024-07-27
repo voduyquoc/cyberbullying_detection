@@ -46,7 +46,7 @@ export AWS_DEFAULT_REGION=""
 docker run -it --rm \
     -p 8080:8080 \
     -e PREDICTIONS_STREAM_NAME="tweet_classification" \
-    -e S3_BUCKET_NAME="mlops-zoomcamp-quocvo" \
+    -e S3_BUCKET_NAME="mlops-zoomcamp-cyberbullying" \
     -e RUN_ID="5ab97220296c412ab99f485ed2605e66" \
     -e TEST_RUN="True" \
     -e AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \

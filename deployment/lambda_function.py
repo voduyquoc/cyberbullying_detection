@@ -15,10 +15,7 @@ S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
 logged_model = f's3://{S3_BUCKET_NAME}/1/{RUN_ID}/artifacts/model'
 model = mlflow.pyfunc.load_model(logged_model)
 
-
 TEST_RUN = os.getenv('TEST_RUN', 'False') == 'True'
-
-
 
 def clean_text(text):
     # Remove HTML tags

@@ -319,7 +319,7 @@ def main_flow():
     register_run_id = train_all_data(S3_BUCKET_NAME, best_run_id, X_train, y_train, tag_value)
 
     # Register best model
-    model_name = "Cyberbullying-detection"
+    model_name = "Cyberbullying-classification"
     register_best_model(client, register_run_id, model_name, tag_value)
 
     return None
