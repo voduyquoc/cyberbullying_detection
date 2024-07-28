@@ -14,7 +14,7 @@ aws kinesis put-record \
 
 export PREDICTIONS_STREAM_NAME="tweet_classification"
 export S3_BUCKET_NAME="mlops-zoomcamp-cyberbullying"
-export RUN_ID="5ab97220296c412ab99f485ed2605e66"
+export RUN_ID="ff9ebbf78c044409acdf31730c1b9142"
 export TEST_RUN="True"
 
 python test.py
@@ -47,7 +47,7 @@ docker run -it --rm \
     -p 8080:8080 \
     -e PREDICTIONS_STREAM_NAME="tweet_classification" \
     -e S3_BUCKET_NAME="mlops-zoomcamp-cyberbullying" \
-    -e RUN_ID="5ab97220296c412ab99f485ed2605e66" \
+    -e RUN_ID="ff9ebbf78c044409acdf31730c1b9142" \
     -e TEST_RUN="True" \
     -e AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
     -e AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
@@ -70,3 +70,6 @@ docker tag ${LOCAL_IMAGE} ${REMOTE_IMAGE}
 docker push ${REMOTE_IMAGE}
 
 echo $REMOTE_IMAGE
+
+
+pipenv --venv
