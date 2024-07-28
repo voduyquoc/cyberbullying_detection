@@ -38,7 +38,7 @@ if __name__ == "__main__":
     PRODUCE_STREAM_NAME = 'tweet_events'
     PARTITION_KEY = '1'
 
-    df = pd.read_parquet('./data/data.parquet')
+    df = pd.read_csv('./data/data.csv')
 
     NUM_RECORD = 20
 

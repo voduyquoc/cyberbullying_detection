@@ -11,7 +11,7 @@ kinesis_client = boto3.client('kinesis')
 
 CONSUME_STREAM_NAME = 'tweet_classification'
 
-current_data = pd.read_parquet('./data/data.parquet')
+original_data = pd.read_csv('./data/data.csv')
 
 def process_records(Records):
     if len(Records) != 0:
@@ -60,7 +60,9 @@ def main(stream_name):
             print(f'Tweet id {tweet_id} is classified and recorded.')
 
         df = pd.DataFrame(data_dict)
-        df.to_parquet('./data/current.parquet', index=False)
+        current_data = pd.merge(original_data, df, on='id', how='inner')
+
+        current_data.to_csv('./data/current.csv', index=False)
 
     except ClientError as e:
         logger.exception("Couldn't get records from stream %s.", stream_name)

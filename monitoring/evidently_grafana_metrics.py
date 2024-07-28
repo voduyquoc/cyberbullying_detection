@@ -30,8 +30,8 @@ create table if not exists metrics (
 """
 
 # Load data and model
-current_data = pd.read_parquet('./data/current.parquet')
-reference_data = pd.read_parquet('./data/reference.parquet')
+current_data = pd.read_csv('./data/current.csv')
+reference_data = pd.read_csv('./data/reference.csv')
 
 
 col_mapping = ColumnMapping(target='cyberbullying_type', prediction='prediction')

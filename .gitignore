@@ -2,9 +2,6 @@
 .bin
 *.db
 
-# *.parquet
-*.html
-*.csv
 
 .venv
 venv
