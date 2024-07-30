@@ -1,15 +1,14 @@
-export KINESIS_STREAM_INPUT="stg_ride_events-mlops-zoomcamp"
-export KINESIS_STREAM_OUTPUT="stg_ride_predictions-mlops-zoomcamp"
+export KINESIS_STREAM_INPUT="tweet_events"
+export KINESIS_STREAM_OUTPUT="tweet_classification"
 
 SHARD_ID=$(aws kinesis put-record  \
         --stream-name ${KINESIS_STREAM_INPUT}   \
         --partition-key 1  --cli-binary-format raw-in-base64-out  \
-        --data '{"ride": {
-            "PULocationID": 130,
-            "DOLocationID": 205,
-            "trip_distance": 3.66
-        },
-        "ride_id": 156}'  \
+        --data '{ 
+        "tweet": {
+            "tweet_text": "Hello, this is a test."
+        }, 
+        "tweet_id": 123}'  \
         --query 'ShardId'
     )
 
