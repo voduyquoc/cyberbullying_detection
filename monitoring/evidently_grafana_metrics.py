@@ -126,7 +126,7 @@ def batch_monitoring():
 
     """
     SEND_TIMEOUT = 10
-    prep_db()
+    prep_db(create_table_query)
     ROWS = current_data.shape[0]
     iters = math.ceil(ROWS / 5)
     begin = datetime.datetime.now(pytz.timezone('Europe/Berlin')) - datetime.timedelta(iters)
