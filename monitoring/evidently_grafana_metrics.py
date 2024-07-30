@@ -31,6 +31,7 @@ create table if not exists metrics (
 
 # Load data and model
 current_data = pd.read_csv('./data/current.csv')
+current_data = current_data.head(20)
 reference_data = pd.read_csv('./data/reference.csv')
 
 
@@ -127,7 +128,6 @@ def batch_monitoring():
     """
     SEND_TIMEOUT = 10
     prep_db(create_table_query)
-    current_data = current_data.head(20)
     ROWS = current_data.shape[0]
     iters = math.ceil(ROWS / 5)
     begin = datetime.datetime.now(pytz.timezone('Europe/Berlin')) - datetime.timedelta(iters)
