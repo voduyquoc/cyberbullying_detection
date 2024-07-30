@@ -39,11 +39,15 @@ The exploratory data analysis and modeling is done in the `notebooks` directory.
 
 ### Training Pipeline
 
-...
+![prefect](images/prefect.png)
 
 ### Experiment Tracking & Model Registry
 
-...
+![mlflow](images/mlflow_1.png)
+
+![mlflow](images/mlflow_2.png)
+
+![mlflow](images/mlflow_3.png)
 
 ### Streaming Deployment
 

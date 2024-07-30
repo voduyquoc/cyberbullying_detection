@@ -1,5 +1,7 @@
 import re
 import nltk
+nltk.download('stopwords')
+nltk.download('punkt')
 import mlflow
 import pandas as pd
 from nltk.corpus import stopwords
@@ -302,7 +304,7 @@ def main_flow():
     client = MlflowClient()
 
     # Load the data
-    df = load_data("../data/cyberbullying_tweets.csv")
+    df = load_data("data/cyberbullying_tweets.csv")
 
     # Clean the text
     X_train, y_train = prepare_data(df)

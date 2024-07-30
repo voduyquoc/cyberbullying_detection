@@ -10,7 +10,13 @@ To deploy our model, we'll need to convert our notebooks to python scripts (`mod
 
 All the deployment related code is located in the `deployment` directory.
 
-Run below script to create the image and push it to AWS ECR.
+Change directory to `main` folder
+
+```bash
+cd ~/cyberbullying_detection
+```
+
+Run below script to add environment variables to AWS Lambda to run streaming service.
 
 ```bash
 bash setup/deploy_manual.sh

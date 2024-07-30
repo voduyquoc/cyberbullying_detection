@@ -1,13 +1,13 @@
 setup_ec2:
 	echo "Downloading anaconda..."
 	mkdir -p ../soft && cd ~/soft && \
-	wget https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Linux-x86_64.sh
+	wget https://repo.anaconda.com/archive/Anaconda3-2023.03-0-Linux-x86_64.sh
 
 	echo "Running anaconda script..."
-	bash ~/soft/Anaconda3-2024.06-1-Linux-x86_64.sh
+	bash ~/soft/Anaconda3-2023.03-0-Linux-x86_64.sh
 
 	echo "Removing anaconda script..."
-	rm ~/soft/Anaconda3-2024.06-1-Linux-x86_64.sh
+	rm ~/soft/Anaconda3-2023.03-0-Linux-x86_64.sh
 
 	echo "Installed conda version..."
 	conda --version
@@ -19,8 +19,8 @@ setup_ec2:
 	sudo apt-get -y install docker.io
 
 	echo "Docker without sudo setup..."
-	sudo groupadd docker
-	sudo gpasswd -a $USER docker
+	sudo groupadd docker && \
+	sudo gpasswd -a $USER docker && \
 	sudo service docker restart
 
 	echo "Installing docker-compose..."
@@ -36,7 +36,7 @@ setup_ec2:
 	docker-compose --version
 
 	echo "Installing AWS CLI..."
-	sudo apt install unzip
+	sudo apt install unzip && \
 	cd ~/soft && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && sudo ./aws/install
 
 	echo "aws cli version..."
@@ -48,7 +48,7 @@ setup_ec2:
 	sudo apt update && sudo apt install terraform
 
 	echo "Installing necessary packages..."
-	pip install mlflow prefect boto3 evidently pyarrow psycopg psycopg_binary pytest isort black pylint 
+	pip install nltk mlflow prefect boto3 evidently pyarrow psycopg psycopg_binary pytest isort black pylint 
 
 LOCAL_TAG:=$(shell date +"%Y-%m-%d-%H-%M")
 LOCAL_IMAGE_NAME:=stream-model-duration:${LOCAL_TAG}
