@@ -2,7 +2,7 @@
 
 Create a [S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html) named: `tf-state-mlops-zoomcamp-cyberbullying`
 ```bash
-aws s3api create-bucket --bucket tf-state-mlops-zoomcamp-cyberbullying --region <your-default-aws-region>
+aws s3api create-bucket --bucket tf-state-mlops-zoomcamp-cyberbullying --region <your-default-aws-region> --create-bucket-configuration LocationConstraint=<your-default-aws-region>
 ```
 
 Change directory to the `terraform` folder.

@@ -2,7 +2,7 @@
 
 Change directory to `training` folder
 ```bash
-cd cyberbullying-detection/training
+cd ~/cyberbullying_detection/training
 ```
 
 Run the following to start the mlflow tracking server

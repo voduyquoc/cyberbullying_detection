@@ -1,13 +1,13 @@
 setup_ec2:
 	echo "Downloading anaconda..."
 	mkdir -p ../soft && cd ~/soft && \
-	wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
+	wget https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Linux-x86_64.sh
 
 	echo "Running anaconda script..."
-	bash ~/soft/Anaconda3-2022.05-Linux-x86_64.sh
+	bash ~/soft/Anaconda3-2024.06-1-Linux-x86_64.sh
 
 	echo "Removing anaconda script..."
-	rm ~/soft/Anaconda3-2022.05-Linux-x86_64.sh
+	rm ~/soft/Anaconda3-2024.06-1-Linux-x86_64.sh
 
 	echo "Installed conda version..."
 	conda --version
@@ -24,8 +24,7 @@ setup_ec2:
 	sudo service docker restart
 
 	echo "Installing docker-compose..."
-	cd ~/soft
-	wget https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -O docker-compose
+	cd ~/soft && wget https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-x86_64 -O docker-compose && \
 	sudo chmod +x docker-compose
 
 	echo "Setup .bashrc..."
@@ -39,6 +38,9 @@ setup_ec2:
 	echo "Installing AWS CLI..."
 	sudo apt install unzip
 	cd ~/soft && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && sudo ./aws/install
+
+	echo "aws cli version..."
+	aws --version
 
 	echo "Installing Terraform..."
 	wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
