@@ -1,6 +1,6 @@
 ## Initial AWS Setup
 
-Create [create an AWS account](https://aws.amazon.com/free) with your email.
+Create an [AWS account](https://aws.amazon.com/free) with your email.
 
 Create an [IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) with `AdministratorAccess` permission. This user acts as the admin for the project and will be used to create the infrastructure. However when the infrastructure is created each service will have its own IAM role with the least required permissions.
 

@@ -2,7 +2,7 @@
 
 The first few minutes of [this video by Alexey](https://www.youtube.com/watch?v=IXSiYkP23zo) is recommended for understanding how it's done. You can then follow the below steps.
 
-Launch a new EC2 instance. An Ubuntu OS (Ubuntu Server 22.04 LTS (HVM), SSD Volume Type, Architecture 64-bit (x86)) and a t2.micro instance type are recommended. 
+Launch a new EC2 instance. An Ubuntu OS (Ubuntu Server 24.04 LTS (HVM), SSD Volume Type, Architecture 64-bit (x86)) and a t2.micro instance type, a 30Gb gp2 storage are recommended. 
 
 **Note** - Billing will start as soon as the instance is created and run.
 
@@ -19,7 +19,7 @@ code ~/.ssh/config
 Copy the following snippet and replace with External IP of the Virtual Machine. Username and path to the ssh private key
 
 ```bash
-Host mlops-zoomcamp-cyberbullying
+Host mlops-zoomcamp
     HostName <ec2_public_ip>
     User ubuntu
     IdentityFile ~/.ssh/<key_pair_name>.pem
@@ -29,7 +29,7 @@ Host mlops-zoomcamp-cyberbullying
 Once you are setup, you can simply SSH into the servers using the below commands in separate terminals. Do not forget to change the IP address of VM restarts.
 
 ```bash
-ssh mlops-zoomcamp-cyberbullying
+ssh mlops-zoomcamp
 ```
 
 You will have to forward ports from your VM to your local machine for you to be able to see Mage UI. Check how to do that [here](https://youtu.be/ae-CV2KfoN0?t=1074)
@@ -53,7 +53,7 @@ cd cyberbullying_detection
 Install all the tools and dependencies
 
 ```bash
-make set-up-ec2
+make set_up_ec2
 ```
 
 Configure the AWS CLI using the command `aws configure`. You'll need to provide the `AWS_ACCESS_KEY` and `AWS_SECRET_ACCESS_KEY` along with the `AWS_REGION` and `AWS_OUTPUT_FORMAT` (optional). 
