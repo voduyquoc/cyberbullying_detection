@@ -25,7 +25,7 @@ deployments:
   version:
   tags: []
   description:
-  entrypoint: training/training.py:main_flow
+  entrypoint: training.py:main_flow
   parameters: {}
   work_pool:
     name: cyberbullying
