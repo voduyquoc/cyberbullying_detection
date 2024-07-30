@@ -5,13 +5,13 @@
 
 echo "Downloading anaconda..."
 mkdir -p ../soft && cd ~/soft && \
-wget https://repo.anaconda.com/archive/Anaconda3-2022.10-Linux-x86_64.sh
+wget https://repo.anaconda.com/archive/Anaconda3-2023.07-1-Linux-x86_64.sh
 
 echo "Running anaconda script..."
-bash ~/soft/Anaconda3-2022.10-Linux-x86_64.sh
+bash ~/soft/Anaconda3-2023.07-1-Linux-x86_64.sh
 
 echo "Removing anaconda script..."
-rm ~/soft/Anaconda3-2022.10-Linux-x86_64.sh
+rm ~/soft/Anaconda3-2023.07-1-Linux-x86_64.sh
 
 echo "Running sudo apt-get update..."
 sudo apt-get update
