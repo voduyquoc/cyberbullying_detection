@@ -8,7 +8,7 @@ aws s3api create-bucket --bucket tf-state-mlops-zoomcamp-cyberbullying --region 
 Change directory to the `terraform` folder.
 
 ```bash
-cd cyberbullying_detection/terraform
+cd ~/cyberbullying_detection/terraform
 ```
 
 You will edit `your-default-aws-region` in the file `variables.tf`. Use the same values throughout the project. 
