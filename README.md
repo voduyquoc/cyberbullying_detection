@@ -32,7 +32,7 @@ An end-to-end machine learning project with Terraform, MLflow, Prefect, Docker, 
 
 ### Architecture
 
-...
+![architecture](images/architecture.png)
 
 ### Exploratory Data Analysis and Modeling
 The exploratory data analysis and modeling is done in the `notebooks` directory. The exploratory data analysis is done in the [exploratory-data-analysis.ipynb](notebooks/exploratory-data-analysis.ipynb) notebook. The modeling is done in the [modeling.ipynb](notebooks/modeling.ipynb) notebook.
