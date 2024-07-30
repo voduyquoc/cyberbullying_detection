@@ -76,4 +76,4 @@ If you already have an Amazon Web Services account, you can skip the pre-requisi
 - Include CI/CD
 
 ### Special Mentions
-I'd like to thank the [DataTalks.Club](https://datatalks.club) for offering this Data Engineering course for completely free. All the things I learnt there, enabled me to come up with this project. If you want to develop skill on Machine Learning Operations (MLOps) technologies, please check out the [course](https://github.com/DataTalksClub/mlops-zoomcamp).
+I'd like to thank the [DataTalks.Club](https://datatalks.club) for offering this Machine Learning Operations (MLOps) course for completely free. All the things I learnt there, enabled me to come up with this project. If you want to develop skill on MLOps technologies, please check out the [course](https://github.com/DataTalksClub/mlops-zoomcamp).
