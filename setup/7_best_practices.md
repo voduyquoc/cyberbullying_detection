@@ -27,5 +27,5 @@ make pre-commit
 We have written `unit tests` and `integration tests` located in the `tests` directory. To run the these tests, run the following command:
 
 ```bash
-make test
+make tests
 ```

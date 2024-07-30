@@ -68,7 +68,7 @@ unit_tests:
 build: test
 	docker build -t ${LOCAL_IMAGE_NAME} .
 
-test: build
+tests: build
 	echo "Perform integration tests..."
 	LOCAL_IMAGE_NAME=${LOCAL_IMAGE_NAME} bash tests/integraton_tests/run.sh
 
