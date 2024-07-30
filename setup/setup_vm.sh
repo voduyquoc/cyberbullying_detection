@@ -1,17 +1,17 @@
 #!/bin/bash
 
 # Run using the below command
-# bash vm_setup.sh
+# bash setup_vm.sh
 
 echo "Downloading anaconda..."
 mkdir -p ../soft && cd ~/soft && \
-wget https://repo.anaconda.com/archive/Anaconda3-2023.03-0-Linux-x86_64.sh
+wget https://repo.anaconda.com/archive/Anaconda3-2022.10-Linux-x86_64.sh
 
 echo "Running anaconda script..."
-bash ~/soft/Anaconda3-2023.03-0-Linux-x86_64.sh
+bash ~/soft/Anaconda3-2022.10-Linux-x86_64.sh
 
 echo "Removing anaconda script..."
-rm ~/soft/Anaconda3-2023.03-0-Linux-x86_64.sh
+rm ~/soft/Anaconda3-2022.10-Linux-x86_64.sh
 
 echo "Running sudo apt-get update..."
 sudo apt-get update
@@ -49,4 +49,5 @@ echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://
 sudo apt update && sudo apt install terraform
 
 echo "Installing necessary packages..."
+
 pip install pipenv nltk mlflow prefect boto3 evidently pyarrow psycopg psycopg_binary pytest isort black pylint 
