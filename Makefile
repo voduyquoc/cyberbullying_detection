@@ -17,7 +17,7 @@ setup_ec2:
 
 	echo "Docker without sudo setup..."
 	sudo groupadd docker
-	sudo gpasswd -a $USER docker
+	sudo gpasswd -a ${USER} docker
 	sudo service docker restart
 
 	echo "Installing docker-compose..."
