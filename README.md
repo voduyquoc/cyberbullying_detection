@@ -1,6 +1,6 @@
 # cyberbullying_detection
 
-A data pipeline with Terraform, MLflow, Prefect, Docker, AWS (EC2, Lambda, S3, Kinesis, ECR, IAM), Evidently AI, Grafana and much more!
+An end-to-end machine learning project with Terraform, MLflow, Prefect, Docker, AWS (EC2, Lambda, S3, Kinesis, ECR, IAM), Evidently AI, Grafana and much more!
 
 ## Description
 
