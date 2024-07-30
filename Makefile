@@ -4,10 +4,10 @@ set_up_ec2:
 	wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
 
 	echo "Running anaconda script..."
-	bash Anaconda3-2022.05-Linux-x86_64.sh
+	bash ~/soft/Anaconda3-2022.05-Linux-x86_64.sh
 
 	echo "Removing anaconda script..."
-	rm Anaconda3-2021.11-Linux-x86_64.sh
+	rm ~/soft/Anaconda3-2021.11-Linux-x86_64.sh
 
 	# activate conda
 	eval "$($HOME/anaconda/bin/conda shell.bash hook)"
