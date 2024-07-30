@@ -15,14 +15,14 @@ Run `prefect` server
 prefect server start
 ```
 
-Deploy the flow
-```bash
-prefect deploy training.py:main_flow -n cyberbullying_flow -p cyberbullying
-```
-
 Start the prefect worker
 ```bash
 prefect worker start --pool cyberbullying
+```
+
+Deploy the flow
+```bash
+prefect deploy training.py:main_flow -n cyberbullying_flow -p cyberbullying
 ```
 
 Run the ML model training and model registration pipeline
