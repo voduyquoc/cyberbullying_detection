@@ -24,15 +24,15 @@ Run `consumer` to consume resulted data from our streaming service and save data
 python consumer.py
 ```
 
+To view the model monitoring dashboard, run the following command:
+```bash
+docker-compose up
+```
+
 Generate `evidently` report and tracking database for `grafana` monitoring dashboard
 
 ```bash
 python evidently_grafana_metrics.py
-```
-
-To view the model monitoring dashboard, run the following command:
-```bash
-docker-compose up
 ```
 
 You can view the dashboard on the following URL. Note: Allow port 3000 for port forwarding in VS Code.

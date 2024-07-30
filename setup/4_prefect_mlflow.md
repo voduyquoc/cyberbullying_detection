@@ -15,6 +15,11 @@ Run `prefect` server
 prefect server start
 ```
 
+Run the prefect flow
+```bash
+python training.py
+```
+
 Start the prefect worker
 ```bash
 prefect worker start --pool cyberbullying
