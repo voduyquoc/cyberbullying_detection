@@ -1,4 +1,4 @@
-set_up_ec2:
+setup_ec2:
 	echo "Downloading anaconda..."
 	mkdir -p ../soft && cd ~/soft && \
 	wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
@@ -7,16 +7,7 @@ set_up_ec2:
 	bash ~/soft/Anaconda3-2022.05-Linux-x86_64.sh
 
 	echo "Removing anaconda script..."
-	rm ~/soft/Anaconda3-2021.11-Linux-x86_64.sh
-
-	# activate conda
-	eval "$($HOME/anaconda/bin/conda shell.bash hook)"
-
-	echo "Running conda init..."
-	conda init
-	# Using -y flag to auto-approve
-	echo "Running conda update..."
-	conda update -y conda
+	rm ~/soft/Anaconda3-2022.05-Linux-x86_64.sh
 
 	echo "Installed conda version..."
 	conda --version

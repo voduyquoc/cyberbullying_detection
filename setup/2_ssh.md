@@ -53,7 +53,7 @@ cd cyberbullying_detection
 Install all the tools and dependencies
 
 ```bash
-make set_up_ec2
+make setup_ec2
 ```
 
 Configure the AWS CLI using the command `aws configure`. You'll need to provide the `AWS_ACCESS_KEY` and `AWS_SECRET_ACCESS_KEY` along with the `AWS_REGION` and `AWS_OUTPUT_FORMAT` (optional). 
