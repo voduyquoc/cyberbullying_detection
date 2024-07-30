@@ -9,9 +9,6 @@ setup_ec2:
 	echo "Removing anaconda script..."
 	rm ~/soft/Anaconda3-2023.03-0-Linux-x86_64.sh
 
-	echo "Installed conda version..."
-	conda --version
-
 	echo "Running sudo apt-get update..."
 	sudo apt-get update
 
@@ -48,7 +45,7 @@ setup_ec2:
 	sudo apt update && sudo apt install terraform
 
 	echo "Installing necessary packages..."
-	pip install nltk mlflow prefect boto3 evidently pyarrow psycopg psycopg_binary pytest isort black pylint 
+	pip install pipenv nltk mlflow prefect boto3 evidently pyarrow psycopg psycopg_binary pytest isort black pylint 
 
 LOCAL_TAG:=$(shell date +"%Y-%m-%d-%H-%M")
 LOCAL_IMAGE_NAME:=stream-model-duration:${LOCAL_TAG}
