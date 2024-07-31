@@ -49,6 +49,24 @@ terraform destroy -var-file=vars/prod.tfvars
 
 **Note:** The infrastructure was setup a tad generously, you might not actually be fully utilizing the compute power. Feel free to reduce the instance sizes and test.
 
+Here are the screenshots of resources which are created by Terraform:
 
+- S3 bucket:
 
-#### [Installation Reference - Ankur Chavda](https://github.com/ankurchavda/streamify/blob/main/setup/terraform.md)
+![s3](images/s3.png)
+
+- ECR repository:
+
+![ecr](images/ecr_1.png)
+
+- Container image:
+
+![ecr](images/ecr_2.png)
+
+- Lambda function:
+
+![lambda](images/lambda_4.png)
+
+- Kinesis streams:
+
+![kinesis](images/kinesis.png)

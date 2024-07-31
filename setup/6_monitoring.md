@@ -42,4 +42,4 @@ http://localhost:3000
 
 The dashboard will look like the following. The dashboard provides metrics such as `Accuracy`, `Precision`, `Recall`, and `F1 Score`.
 
-
+![grafana](images/grafana.png)

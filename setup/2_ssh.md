@@ -60,7 +60,3 @@ Configure the AWS CLI using the command `aws configure`. You'll need to provide 
     - AWS Access Key ID [None]: The access key id from IAM 
     - AWS Secret Access Key [None]: The Secret key id from IAM
     - default region name should be the similar format as: `eu-north-1`
-
-
-
-#### [Installation Reference - Ankur Chavda](https://github.com/ankurchavda/streamify/blob/main/setup/ssh.md)
