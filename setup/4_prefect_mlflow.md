@@ -51,20 +51,20 @@ Option 2: Trigger Prefect flow
 
 Below is the screenshot of the Prefect Deployment:
 
-![prefect](images/prefect.png)
+![prefect](../images/prefect.png)
 
 Below is the MLflow UI screenshot of the model training runs:
 
-![mlflow](images/mlflow_1.png)
+![mlflow](../images/mlflow_1.png)
 
 MLflow Model Registry:
 
-![mlflow](images/mlflow_3.png)
+![mlflow](../images/mlflow_3.png)
 
 Directory of model artifacts:
 
-![mlflow](images/mlflow_2.png)
+![mlflow](../images/mlflow_2.png)
 
 Model artifacts which are stored in S3 bucket:
 
-![s3](images/s3_2.png)
+![s3](../images/s3_2.png)

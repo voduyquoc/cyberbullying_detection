@@ -30,20 +30,20 @@ bash setup/test_cloud_e2e.sh
 
 Below is the screenshot of the Lambda function:
 
-![lambda](images/lambda.png)
+![lambda](../images/lambda.png)
 
-![lambda](images/lambda_4.png)
+![lambda](../images/lambda_4.png)
 
 Here are streams which are created by using Terraform.
 
-![kinesis](images/kinesis.png)
+![kinesis](../images/kinesis.png)
 
 Here is the result when we add environment variables to AWS Lambda.
 
-![lambda](images/lambda_2.png)
+![lambda](../images/lambda_2.png)
 
 Below are result when we send data to `tweet_events` stream.
 
-![lambda](images/lambda_3.png)
+![lambda](../images/lambda_3.png)
 
 

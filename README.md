@@ -53,9 +53,19 @@ The exploratory data analysis and modeling is done in the `notebooks` directory.
 
 ![mlflow](images/mlflow_3.png)
 
+### Model Storage
+
+![mlflow](images/s3_2.png)
+
 ### Streaming Deployment
 
 ![lambda](images/lambda_4.png)
+
+![kinesis](images/kinesis.png)
+
+### Container Image Storage
+
+![ecr](images/ecr_2.png)
 
 ### Model Monitoring
 
