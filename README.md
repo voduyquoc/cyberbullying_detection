@@ -6,15 +6,19 @@ An end-to-end machine learning project with Terraform, MLflow, Prefect, Docker, 
 
 ### Problem
 
-...
+A growing number of people across all age groups use social media, and most depend on it as their primary means of daily contact. Because social media is so widely used, cyberbullying can affect anybody at any time or place. Because it is more anonymous online, it is more challenging to eliminate than conventional bullying.
+
+In reaction to the increased risk of cyberbullying during the COVID-19 epidemic brought on by extensive school closures, more screen usage, and less in-person social interaction, UNICEF issued a [warning](https://www.unicef.org/press-releases/children-increased-risk-harm-online-during-global-covid-19-pandemic) on April 15, 2020. The statistics on cyberbullying are incredibly concerning: 87% of middle and high school kids have witnessed cyberbullying, and 36.5% of them have experienced it themselves. The impacts of cyberbullying can range from depressive symptoms to suicidal thoughts.
+
+This project intends to promote proactive efforts towards combatting this by creating models to automatically flag potentially harmful tweets and break down the patterns of hatred.
 
 ### Objective
 
-....
+The project will create a stream Machine Learning Operations (MLOps) pipeline that processes the tweet data. The data will be retrieved from tweet API, sent to AWS Lambda to process. The Lambda function will retrieve model artifacts from AWS S3, and perform the classification, return the class of tweets to the classification streams. System can consume this classification stream to flag potentially harmful tweets and send warnings to users. 
 
 ### Dataset
 
-.... 
+The tweets data which will be used to train the machine learning model is obtained from [Kaggle](https://www.kaggle.com/datasets/andrewmvd/cyberbullying-classification/). Over 47,000 tweets have been categorized in this dataset based on the following categories: Age, Ethnicity, Gender, Religion, Other sort of cyberbullying, and Not cyberbullying. There are about 8,000 of each class in the data since it has been balanced. **Warning:** You should only read these tweets to the extent that you feel safe because they either depict bullying incidents or are the offense itself. 
 
 ### Tools & Technologies
 
@@ -51,11 +55,11 @@ The exploratory data analysis and modeling is done in the `notebooks` directory.
 
 ### Streaming Deployment
 
-...
+![lambda](images/lambda_4.png)
 
 ### Model Monitoring
 
-...
+![grafana](images/grafana.png)
 
 ## Setup
 
@@ -80,4 +84,4 @@ If you already have an Amazon Web Services account, you can skip the pre-requisi
 - Include CI/CD
 
 ### Special Mentions
-I'd like to thank the [DataTalks.Club](https://datatalks.club) for offering this Machine Learning Operations (MLOps) course for completely free. All the things I learnt there, enabled me to come up with this project. If you want to develop skill on MLOps technologies, please check out the [course](https://github.com/DataTalksClub/mlops-zoomcamp).
+I'd like to thank the [DataTalks.Club](https://datatalks.club) for offering this MLOps course for completely free. All the things I learnt there, enabled me to come up with this project. If you want to develop skill on MLOps technologies, please check out the [course](https://github.com/DataTalksClub/mlops-zoomcamp).
