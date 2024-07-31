@@ -53,20 +53,20 @@ Here are the screenshots of resources which are created by Terraform:
 
 - S3 bucket:
 
-![s3](images/s3.png)
+![s3](../images/s3.png)
 
 - ECR repository:
 
-![ecr](images/ecr_1.png)
+![ecr](../images/ecr_1.png)
 
 - Container image:
 
-![ecr](images/ecr_2.png)
+![ecr](../images/ecr_2.png)
 
 - Lambda function:
 
-![lambda](images/lambda_4.png)
+![lambda](../images/lambda_4.png)
 
 - Kinesis streams:
 
-![kinesis](images/kinesis.png)
+![kinesis](../images/kinesis.png)
