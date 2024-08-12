@@ -26,13 +26,16 @@ prefect server start
 There are 2 options to run training pipeline.
 
 Option 1: Run the prefect flow below
-    ```bash
-    python training.py
-    ```
+```bash
+python training.py
+```
 
 Option 2: Trigger Prefect flow
 
-- Update the `repository` value in the `prefect.yaml` file to your repository.
+- Change directory to `main` folder
+    ```bash
+    cd ~/cyberbullying_detection
+    ```
 
 - Start the prefect worker
     ```bash

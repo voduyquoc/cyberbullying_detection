@@ -2,7 +2,7 @@
 
 The first few minutes of [this video by Alexey](https://www.youtube.com/watch?v=IXSiYkP23zo) is recommended for understanding how it's done. You can then follow the below steps.
 
-Launch a new EC2 instance. An Ubuntu OS (Ubuntu Server 24.04 LTS (HVM), SSD Volume Type, Architecture 64-bit (x86)) and a t2.micro instance type, a 30Gb gp2 storage are recommended. 
+Launch a new EC2 instance. An Ubuntu OS (Ubuntu Server 24.04 LTS (HVM), SSD Volume Type, Architecture 64-bit (x86)) and a t2.large instance type, a 30Gb gp2 storage are recommended. 
 
 **Note** - Billing will start as soon as the instance is created and run.
 
@@ -56,7 +56,7 @@ Install all the tools and dependencies
 make setup_ec2
 ```
 
-Configure the AWS CLI using the command `aws configure`. You'll need to provide the `AWS_ACCESS_KEY` and `AWS_SECRET_ACCESS_KEY` along with the `AWS_REGION` and `AWS_OUTPUT_FORMAT` (optional). 
+- Configure the AWS CLI using the command `aws configure`. You'll need to provide the `AWS_ACCESS_KEY` and `AWS_SECRET_ACCESS_KEY` along with the `AWS_REGION` and `AWS_OUTPUT_FORMAT` (optional). 
     - AWS Access Key ID [None]: The access key id from IAM 
     - AWS Secret Access Key [None]: The Secret key id from IAM
     - default region name should be the similar format as: `eu-north-1`

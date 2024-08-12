@@ -13,13 +13,13 @@ Quality Checks includes the following:
 To run the quality checks, run the following command:
 
 ```bash
-make quality-checks
+make quality_checks
 ```
 
 We have also incorporated `pre-commit` hooks to run the quality checks before every commit. To install the `pre-commit` hooks, run the following command:
 
 ```bash
-make pre-commit
+make run_pre_commit
 ```
 
 ## Tests

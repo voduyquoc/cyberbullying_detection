@@ -13,15 +13,23 @@ CONSUME_STREAM_NAME = 'tweet_classification'
 
 original_data = pd.read_csv('./data/data.csv')
 
-def process_records(Records):
+def process_records(Records, data_dict):
     if len(Records) != 0:
         for i in range(0, len(Records)):
             result = json.loads(Records[i]['Data'].decode("utf-8"))
+            print(result)
             tweet_id = result['prediction']['tweet_id']
             tweet_class = result['prediction']['classification']
+            if tweet_id in data_dict['id']:
+                index = data_dict['id'].index(tweet_id)
+                data_dict['prediction'][index] = tweet_class
+            else:
+                data_dict['id'].append(tweet_id)
+                data_dict['prediction'].append(tweet_class)
+            print(f'Tweet id {tweet_id} is classified and recorded.')
     else:
         pass
-    return tweet_id, tweet_class
+    return data_dict
 
 def main(stream_name):    
     try:
@@ -49,17 +57,14 @@ def main(stream_name):
             )
             shard_iterator = response['NextShardIterator']
             records = response['Records']
-            record_count = record_count + len(records)
-            tweet_id, tweet_class = process_records(records)
-            if tweet_id in data_dict['id']:
-                index = data_dict['id'].index(tweet_id)
-                data_dict['prediction'][index] = tweet_class
+            if len(records) == 0:
+                pass
             else:
-                data_dict['id'].append(tweet_id)
-                data_dict['prediction'].append(tweet_class)
-            print(f'Tweet id {tweet_id} is classified and recorded.')
+                record_count = record_count + len(records)
+                data_temp = process_records(records, data_dict)
 
-        df = pd.DataFrame(data_dict)
+        df = pd.DataFrame(data_temp)
+        df['id'] = df['id'].astype(int)
         current_data = pd.merge(original_data, df, on='id', how='inner')
         current_data['prediction'] = current_data['prediction'].apply(lambda x: 1 if x == 'cyberbullying' else 0)
         current_data.to_csv('./data/current.csv', index=False)

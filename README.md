@@ -73,7 +73,7 @@ The exploratory data analysis and modeling is done in the `notebooks` directory.
 
 ## Setup
 
-**WARNING: You will be charged for all the infra setup. You try free trials or 12 months free tier on AWS.**
+**WARNING: You will be charged for all the infra setup. You can try free trials or 12 months free tier on AWS.**
 ### Pre-requisites
 
 If you already have an Amazon Web Services account, you can skip the pre-requisite steps.
