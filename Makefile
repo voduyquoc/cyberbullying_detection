@@ -1,5 +1,6 @@
 setup_ec2:
-	bash setup/setup_vm.sh 
+	bash setup/setup_vm.sh && \
+	exec newgrp docker
 
 LOCAL_TAG:=$(shell date +"%Y-%m-%d-%H-%M")
 LOCAL_IMAGE_NAME:=stream-model-duration:${LOCAL_TAG}
