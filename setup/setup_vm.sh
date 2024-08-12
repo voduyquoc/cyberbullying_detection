@@ -50,4 +50,4 @@ sudo apt update && sudo apt install terraform
 
 echo "Installing necessary packages..."
 
-pip install pipenv nltk mlflow prefect boto3 evidently pyarrow psycopg psycopg_binary pytest isort black pylint 
+pip install pipenv nltk mlflow prefect boto3 evidently pyarrow psycopg psycopg_binary pytest isort black pylint deepdiff
