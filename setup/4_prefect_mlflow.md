@@ -39,11 +39,6 @@ Option 2: Trigger Prefect flow
     prefect worker start --pool cyberbullying
     ```
 
-- Deploy the flow
-    ```bash
-    prefect deploy training.py:main_flow -n cyberbullying_flow -p cyberbullying
-    ```
-
 - Run the ML model training and model registration pipeline
     ```bash
     prefect deployment run 'Train Model Pipeline/cyberbullying_flow'
