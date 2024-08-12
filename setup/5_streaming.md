@@ -16,6 +16,12 @@ Change directory to `main` folder
 cd ~/cyberbullying_detection
 ```
 
+Perform unit tests and integrations tests to test the model.
+
+```bash
+make tests
+```
+
 Run below script to add environment variables to AWS Lambda to run streaming service.
 
 ```bash
