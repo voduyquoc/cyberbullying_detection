@@ -61,7 +61,7 @@ def main(stream_name):
 
         df = pd.DataFrame(data_dict)
         current_data = pd.merge(original_data, df, on='id', how='inner')
-
+        df['prediction'] = df['prediction'].apply(lambda x: 1 if x == 'cyberbullying' else 0)
         current_data.to_csv('./data/current.csv', index=False)
 
     except ClientError as e:
