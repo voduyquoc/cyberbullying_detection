@@ -19,11 +19,9 @@ def produce(df, num_record, kinesis_client, produce_stream_name, partition_key):
 
         data_bytes = json.dumps(send_data).encode('utf-8')
 
-        data_base64 = base64.b64encode(data_bytes)
-
         kinesis_client.put_record(
             StreamName=produce_stream_name,
-            Data=data_base64,
+            Data=data_bytes,
             PartitionKey=partition_key
         )
 

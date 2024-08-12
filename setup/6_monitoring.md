@@ -12,16 +12,16 @@ First, change directory to `monitor` folder
 cd ~/cyberbullying_detection/monitoring
 ```
 
-Run `producer` to send data to our streaming service. 
+Run `produce` to send data to our streaming service. 
 
 ```bash
-python producer.py
+python produce.py
 ```
 
-Run `consumer` to consume resulted data from our streaming service and save data as `current.csv` in the sub-folder `data`
+Run `consume` to consume resulted data from our streaming service and save data as `current.csv` in the sub-folder `data`
 
 ```bash
-python consumer.py
+python consume.py
 ```
 
 To view the model monitoring dashboard, run the following command:

@@ -12,7 +12,7 @@ fi
 
 export PREDICTIONS_STREAM_NAME="tweet_classification"
 
-cd ~/cyberbullying_detection/tests/integrateion_tests
+cd ~/cyberbullying_detection/tests/integration_tests
 
 docker-compose up -d
 
